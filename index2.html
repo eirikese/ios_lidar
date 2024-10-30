@@ -21,7 +21,7 @@
             try {
                 const constraints = {
                     video: {
-                        facingMode: { ideal: "environment" }, // Rear camera with LiDAR
+                        facingMode: { ideal: "environment" }, // Rear LiDAR sensor
                         width: { ideal: 1280 },
                         height: { ideal: 720 }
                     }
@@ -32,12 +32,12 @@
                 const videoElement = document.getElementById('videoElement');
                 videoElement.srcObject = stream;
             } catch (error) {
-                console.error("Error accessing LiDAR or camera: ", error);
-                alert("Cannot access the rear camera or LiDAR functionality.");
+                console.error("Error accessing LiDAR sensor: ", error);
+                alert("Cannot access the LiDAR sensor functionality.");
             }
         }
 
-        // Start the LiDAR/camera when the page is loaded
+        // Start the LiDAR sensor when the page is loaded
         window.addEventListener('load', () => {
             startLidar();
             setInterval(startLidar, 5000); // Update continuously every 5 seconds
