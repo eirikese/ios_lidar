@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LiDAR Web App for iOS v1.0</title>
+    <style>
+        #videoElement {
+            width: 100%;
+            height: auto;
+            border: 1px solid black;
+        }
+    </style>
+</head>
+<body>
+    <h2>LiDAR Real-Time Scanner</h2>
+    <video id="videoElement" autoplay playsinline></video>
+
+    <script>
+        async function startLidar() {
+            try {
+                const constraints = {
+                    video: {
+                        facingMode: { ideal: "environment" }, // Rear camera with LiDAR
+                        width: { ideal: 1280 },
+                        height: { ideal: 720 }
+                    }
+                };
+                
+                // Access the video stream from the rear camera
+                const stream = await navigator.mediaDevices.getUserMedia(constraints);
+                const videoElement = document.getElementById('videoElement');
+                videoElement.srcObject = stream;
+            } catch (error) {
+                console.error("Error accessing LiDAR or camera: ", error);
+                alert("Cannot access the rear camera or LiDAR functionality.");
+            }
+        }
+
+        // Start the LiDAR/camera when the page is loaded
+        window.addEventListener('load', () => {
+            startLidar();
+            setInterval(startLidar, 5000); // Update continuously every 5 seconds
+        });
+    </script>
+</body>
+</html>
